@@ -61,7 +61,12 @@ main() {
       build_project
       ;;
     start)
-      start_server
+      if [ "$CI" = "true" ]; then
+        echo "Running in CI - Skipping docker-compose up."
+      else
+        start_server
+      fi
+      # start_server
       ;;
     all|"")
       setup_environment
