@@ -1,0 +1,31 @@
+name: CI for AutomateWebApp
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Install dependencies
+        uses: docker-practice/actions-setup@v1
+
+      - name: Make automate.sh executable
+        run: chmod +x automate.sh
+
+      - name: Run automate.sh
+        run: ./automate.sh all
